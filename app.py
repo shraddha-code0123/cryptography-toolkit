@@ -17,11 +17,7 @@ tab1, tab2, tab3 = st.tabs(["🔒 AES Encryption", "🗝️ RSA Encryption", "�
 # ── TAB 1: AES ──────────────────────────────────────────────────────────────
 with tab1:
     st.header("AES-256 — Symmetric Encryption")
-    st.info(
-        "**AES** uses the **same secret key** to both encrypt and decrypt. "
-        "Think of it as a lockbox where sender and receiver both have identical keys. "
-        "Used in Wi-Fi (WPA2), HTTPS, disk encryption, and messaging apps."
-    )
+    
     message = st.text_area("Enter a message to encrypt:", value="This is my confidential message!", height=80)
 
     if st.button("🔒 Encrypt then Decrypt", use_container_width=True):
@@ -45,12 +41,9 @@ with tab1:
 # ── TAB 2: RSA ──────────────────────────────────────────────────────────────
 with tab2:
     st.header("RSA-2048 — Asymmetric / Public-Key Encryption")
-    st.info(
-        "**RSA** uses two keys: a **public key** (anyone can encrypt with it) "
-        "and a **private key** (only you can decrypt). This is how HTTPS works."
-    )
+    
     message = st.text_input("Enter a short message to encrypt:", value="Meet me at 9pm.")
-    st.caption("Key generation takes 1-2 seconds — that is normal.")
+    st.caption("Key generation takes 1-2 seconds.")
 
     if st.button("🗝️ Generate Keys and Encrypt", use_container_width=True):
         with st.spinner("Generating 2048-bit RSA key pair..."):
@@ -61,19 +54,16 @@ with tab2:
 
         st.success(f"✅ Decrypted successfully: **{decrypted}**")
         st.code(f"Ciphertext (hex): {ciphertext.hex()[:120]}...", language="text")
-        with st.expander("🔓 Public Key (safe to share)"):
+        with st.expander("🔓 Public Key"):
             st.code(public_key.export_key().decode())
-        with st.expander("🔒 Private Key (NEVER share this)"):
+        with st.expander("🔒 Private Key"):
             st.code(rsa_key.export_key().decode()[:300] + "\n... (truncated for safety)")
 
 # ── TAB 3: SHA ──────────────────────────────────────────────────────────────
 with tab3:
     st.header("SHA Hashing — One-Way Functions")
-    st.info(
-        "**Hashing** is one-way — you can NEVER reverse it. "
-        "Websites store the hash of your password, never the password itself."
-    )
-    text = st.text_input("Enter any text to hash:", value="CyberSecurityInternship2025")
+    
+    text = st.text_input("Enter any text to hash:", value="CyberSecurityInternship2026")
 
     if text:
         st.markdown("#### Hashes using different algorithms")
